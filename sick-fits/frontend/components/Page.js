@@ -1,71 +1,70 @@
 import React, { Component } from 'react';
+import styled, { ThemeProvider, injectGlobal } from 'styled-components';
 import Header from './Header';
 import Meta from './Meta';
-import styled from 'styled-components';
 
-const MyButton = styled.button`
-    display: block;
-    margin-bottom: 20px;
-    background: ${props => props.background || 'orange'};
-    color: ${props => (props.lightColor ? 'orange' : 'blue')};
-    font-size: ${props => (props.huge ? `${props.huge}px` : '50px')};
-    span {
-        font-size: 30px;
-    }
-    .buttonSpanClass {
-        font-size: 60px;
-    }
-`;
-
-// styling can be applied to any component
-
-const MyLink = (object) => {
-    console.log(object);
-    console.log(object.children);
-
-    return <a className={object.className}>{object.children}</a>;
+const theme = {
+    red: '#FF0000',
+    black: '#393939',
+    grey: '#3A3A3A',
+    lightGrey: '#E1E1E1',
+    offWhite: '#EDEDED',
+    maxWidth: '1000px',
+    bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)',
 };
 
-const StyledLink = styled(MyLink)`
-    display: block;
-    color: ${props => props.color || 'orange'};
-    font-weight: bold;
+injectGlobal`
+    @font-face {
+        font-family: 'radnika_next';
+        src: url('/static/radnikanext-medium-webfont.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }   
+    html {
+        box-sizing: border-box;
+        font-size: 10px;
+    }
+    *, *::before, *::after {
+        box-sizing: inherit;
+    }
+    body {
+        padding: 0;
+        margin: 0;
+        font-size: 1.5rem;
+        line-height: 2;
+        font-family: 'radnika_next';
+    }
+    a {
+        text-decoration: none;
+        color: ${theme.black};
+    }
 `;
 
-const Input = styled.input`
-    display: block;
-    margin-top: 20px;
-    padding: 0.5em;
-    color: ${props => props.color || 'palevioletred'};
-    background: papayawhip;
-    border: none;
-    border-radius: 3px;
+const StyledPage = styled.div`
+    /* * {
+        outline: 1px solid black;
+    } */
+    background: white;
+    color: ${props => props.theme.black};
+`;
+
+const Inner = styled.div`
+    max-width: ${props => props.theme.maxWidth};
+    margin: 0 auto;
+    padding: 2rem;
 `;
 
 export default class Page extends Component {
     render() {
-        console.log(MyButton);
-
         return (
-            <div>
-                <Meta />
-                <Header />
-                <MyButton fontSize='40px'>
-                    Default orange button 40px<span>span 30px</span>
-                    <span className='buttonSpanClass'>span with class 60px</span>
-                </MyButton>
-                <MyButton huge="90" background='lightblue' fontSize='20px'>
-                    Blue Button 20px
-                </MyButton>
-
-                <MyLink>Unstyled, boring Link</MyLink>
-                <StyledLink color='rebeccapurple'>Styled, exciting Link</StyledLink>
-                <Input defaultValue='@probablyup' type='text' />
-                <Input defaultValue='@geelen' type='text' color='rebeccapurple' />
-
-                <p>Heidihei page component</p>
-                {this.props.children}
-            </div>
+            <ThemeProvider theme={theme}>
+                <StyledPage>
+                    <Meta />
+                    <Header />
+                    <p>Heidihei page component</p>
+                    <Inner>{this.props.children}</Inner>
+                </StyledPage>
+            </ThemeProvider>
         );
     }
 }
