@@ -1,0 +1,21 @@
+# datamodel for the backend, Prisma in this case
+# in addition, the prisma.graphql is generated based on this file
+
+type User {
+  id: ID! @id
+  name: String!
+  email: String!
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type Item {
+    id: ID! @id
+    title: String!
+    description: String
+    image: String
+    largeImage: String
+    price: Int
+    updatedAt: DateTime! @updatedAt
+    createdAt: DateTime! @createdAt
+}
