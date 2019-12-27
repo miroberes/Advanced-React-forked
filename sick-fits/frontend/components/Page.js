@@ -56,13 +56,14 @@ const Inner = styled.div`
 
 export default class Page extends Component {
     render() {
+    // console.log('Page props', this.props);
+
         return (
             <ThemeProvider theme={theme}>
                 <StyledPage>
                     <Meta />
                     <Header />
                     <GlobalStyle />
-                    <p>Heidihei page component</p>
                     <Inner>{this.props.children}</Inner>
                 </StyledPage>
             </ThemeProvider>

@@ -1,17 +1,14 @@
 import { Container } from 'next/app';
 import Page from '../components/Page';
-import { ApolloProvider } from 'react-apollo';
-import withData from '../lib/withData';
+import { withApollo } from '../lib/apollo';
 
 function MyApp(props) {
     // console.log('props', props);
     return (
         <Container>
-            <ApolloProvider client={props.apollo}>
-                <Page>
-                    <props.Component {...props.pageProps} /> {/* props. is just for clarity */}
-                </Page>
-            </ApolloProvider>
+            <Page>
+                <props.Component {...props.pageProps} /> {/* props. is just for clarity */}
+            </Page>
         </Container>
     );
 }
@@ -27,4 +24,4 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
     return { pageProps };
 };
 
-export default withData(MyApp);
+export default withApollo(MyApp);
