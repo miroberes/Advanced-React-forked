@@ -5,8 +5,8 @@ import Item from './Item';
 import styled from 'styled-components';
 
 const ALL_ITEMS_QUERY = gql`
-    query items {
-        items {
+    query getAllTheItems {
+        getAllThings {
             id
             title
             description
@@ -35,6 +35,7 @@ const ItemsList = styled.div`
 
 function Items() {
     const { loading, error, data } = useQuery(ALL_ITEMS_QUERY);
+    console.log(data);
     if (loading) {
         return <p>Loading ...</p>;
     }
@@ -43,7 +44,7 @@ function Items() {
     }
     return (
         <ItemsList>
-            {data.items.map(item => {
+            {data.getAllThings.map(item => {
                 return <Item item={item} key={item.id}/>;
             })}
         </ItemsList>
