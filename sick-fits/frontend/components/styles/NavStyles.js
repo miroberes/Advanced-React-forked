@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const NavStyles = styled.div`
-outline: 2px solid red;
+/* outline: 2px solid red; */
   margin: 0;
   padding: 0;
   display: flex;

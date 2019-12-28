@@ -2,7 +2,7 @@ const { GraphQLServer } = require('graphql-yoga');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
 const { prisma } = require('../prisma-client/');
-// const db = require('./db');
+const db = require('./db');
 
 // create GraphQL Yoga server
 function createServer() {
@@ -15,7 +15,7 @@ function createServer() {
         resolverValidationOptions: {
             requireResolversForResolveType: false,
         },
-        context: req => ({ ...req, prisma }),
+        context: req => ({ ...req, prisma, db }),
     });
 }
 

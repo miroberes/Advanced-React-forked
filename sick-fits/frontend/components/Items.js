@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const ALL_ITEMS_QUERY = gql`
     query getAllTheItems {
-        getAllThings {
+        items {
             id
             title
             description
@@ -44,7 +44,7 @@ function Items() {
     }
     return (
         <ItemsList>
-            {data.getAllThings.map(item => {
+            {data.items.map(item => {
                 return <Item item={item} key={item.id}/>;
             })}
         </ItemsList>
