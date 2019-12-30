@@ -35,7 +35,7 @@ const ItemsList = styled.div`
 
 function Items() {
     const { loading, error, data } = useQuery(ALL_ITEMS_QUERY);
-    console.log(data);
+    // console.log('Items, data:', data);
     if (loading) {
         return <p>Loading ...</p>;
     }

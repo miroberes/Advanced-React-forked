@@ -63,8 +63,10 @@ export default function CreateItem() {
             body: data,
         });
         const file = await res.json();
-        console.log(file);
-        setState(prevState => ({ ...prevState, image: file.secure_url, largeImage: file.eager[0].secure_url }));
+        console.log('file',file);
+        if(!file.error) {
+            setState(prevState => ({ ...prevState, image: file.secure_url, largeImage: file.eager[0].secure_url }));
+        }
     };
 
     return (
