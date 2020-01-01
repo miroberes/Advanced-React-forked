@@ -7,6 +7,6 @@ type Query {
 
 type Mutation {
     createNewThingBasic(title: String!, description: String, image: String, largeImage: String, price: Int): Item
-    createNewThing(blimblam: ItemCreateInput!): Item
+    createNewThing(input: ItemCreateInput!): Item
     updateThing(input: ItemUpdateInput!, id: ItemWhereUniqueInput!): Item
 }

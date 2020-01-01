@@ -1,9 +1,11 @@
-import CreateItem from "../components/CreateItem";
+import CreateItem from '../components/CreateItem';
 
 const Sell = props => {
+    console.log('sell.js props.pageProps:', props.pageProps);
+
     return (
         <div>
-            <CreateItem />
+            <CreateItem bla={props.query.id} />
         </div>
     );
 };

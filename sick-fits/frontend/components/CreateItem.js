@@ -6,7 +6,6 @@ import gql from 'graphql-tag';
 
 import Form from './styles/Form';
 import ErrorMessage from './ErrorMessage';
-import { formatMoney } from '../lib/formatMoney';
 
 const TITLE = 'title';
 const PRICE = 'price';
@@ -39,7 +38,8 @@ const CREATE_ITEM = gql`
     }
 `;
 
-export default function CreateItem() {
+export default function CreateItem(bla) {
+    console.log(bla);
     const [state, setState] = useState({ title: '', description: '', image: '', largeImage: '', price: 0 });
     const inputChangeHandler = e => {
         const { name, type, value } = e.target;

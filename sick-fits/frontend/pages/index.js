@@ -1,5 +1,7 @@
-import Items from "../components/Items";
+import Items from '../components/Items';
 const Home = props => {
+    console.log('index.js Home props', props);
+
     return (
         <div>
             <Items />
