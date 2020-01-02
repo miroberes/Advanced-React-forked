@@ -13,7 +13,7 @@ const PRICE = 'price';
 const DESCRIPTION = 'description';
 
 const GET_ITEM = gql`
-    query getItem($id: ItemWhereUniqueInput!) {
+    query nameJustToBeThereNotUsedAnywhereElse($id: ItemWhereUniqueInput!) {
         item(input: $id) {
             id
             title
@@ -25,7 +25,10 @@ const GET_ITEM = gql`
 
 //  updateItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
 const UPDATE_ITEM = gql`
-    mutation changeItem($inputWhatever: ItemUpdateInput!, $idWhatever: ItemWhereUniqueInput!) {
+    mutation nameJustToBeThereNotUsedAnywhereElse(
+        $inputWhatever: ItemUpdateInput!
+        $idWhatever: ItemWhereUniqueInput!
+    ) {
         updateThing(input: $inputWhatever, id: $idWhatever) {
             id
             title
@@ -79,6 +82,7 @@ export default function UpdateItem({ query }) {
                         variables: { inputWhatever: { ...state }, idWhatever: query },
                     }); // useMutation for mutation updateThing
                     if (res.data && res.data.updateThing) {
+                        console.log('res.data.updateThing.id', res.data.updateThing.id);
                         Router.push({
                             pathname: '/item',
                             query: { id: res.data.updateThing.id },

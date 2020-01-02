@@ -4,18 +4,16 @@ import { useQuery } from '@apollo/react-hooks';
 import Item from './Item';
 import styled from 'styled-components';
 import Pagination from './Pagination';
+import { itemsPerPage } from '../config';
 
 const ALL_ITEMS_QUERY = gql`
-    query getAllTheItems {
-        items {
+    query nameJustToBeThereNotUsedAnywhereElse($firstHowManyVariableKeyName: Int = ${itemsPerPage}, $skipHowManyVariableKeyName: Int = 0){
+        itemsAliasInGqlYogaItemsIsForwardedMustMatchPrisma: items(first: $firstHowManyVariableKeyName, skip: $skipHowManyVariableKeyName, orderBy: createdAt_ASC) {
             id
             title
             description
             image
-            largeImage
             price
-            updatedAt
-            createdAt
         }
     }
 `;
@@ -32,24 +30,27 @@ const ItemsList = styled.div`
     margin: 0 auto;
 `;
 
-function Items() {
-    const { loading, error, data } = useQuery(ALL_ITEMS_QUERY);
-    // console.log('Items, data:', data);
+function Items(props) {
+    const { loading, error, data } = useQuery(ALL_ITEMS_QUERY, {
+        variables: { skipHowManyVariableKeyName: itemsPerPage * props.pagenr - itemsPerPage },
+    });
+    console.log('Items, data:', data);
     if (loading) {
         return <p>Loading ...</p>;
     }
     if (error) {
         return <p>{error.message}</p>;
     }
+    console.log('Items props', props);
     return (
         <Center>
-            <Pagination />
+            <Pagination pagenr={props.pagenr} />
             <ItemsList>
-                {data.items.map(item => {
+                {data.itemsAliasInGqlYogaItemsIsForwardedMustMatchPrisma.map(item => {
                     return <Item item={item} key={item.id} />;
                 })}
             </ItemsList>
-            <Pagination />
+            <Pagination pagenr={props.pagenr} />
         </Center>
     );
 }

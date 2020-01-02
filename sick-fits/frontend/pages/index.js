@@ -4,7 +4,7 @@ const Home = props => {
 
     return (
         <div>
-            <Items />
+            <Items pagenr={parseInt(props.query.pagenr) || 1} />
         </div>
     );
 };

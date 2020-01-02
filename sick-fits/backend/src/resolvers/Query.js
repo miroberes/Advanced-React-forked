@@ -2,6 +2,7 @@ const { forwardTo } = require('prisma-binding');
 
 const Query = {
     items: forwardTo('db'),
+    itemsConnection: forwardTo('db'),
 
     // item: forwardTo('db'), // if no custom logic, just forward it to Prisma
     // async items(parent, args, ctx, info) {
@@ -10,19 +11,20 @@ const Query = {
     //     return allThings;
     // },
 
-    // async item(parent, args, ctx, info) {
-    //     console.log('args.input', args.input)
-    //     // const oneItem = await ctx.prisma.item(args.input); // notice the difference in arguments
-    //     const oneItem = await ctx.db.query.item({where: {id: args.input.id}});
+    async itemGqlYoga(parent, args, ctx, info) {
+        console.log('args.inputGqlYoga', args.inputGqlYoga);
+        // const oneItem = await ctx.prisma.item(args.inputGqlYoga); // notice the difference in arguments
+        const oneItem = await ctx.db.query.item({
+            where: { id: args.inputGqlYoga.id },
+        });
 
-    //     console.log('oneItem', oneItem);
-    //     return oneItem;
-    // },
+        console.log('oneItem', oneItem);
+        return oneItem;
+    },
 
     // forwarding to Prisma with the Prisma client prisma.$graphql(queryAsPlainString)
     async itemWithPrismaClient(parent, args, ctx, info) {
         console.log('args.queryx', args.queryx);
-        // const oneItem = await ctx.prisma.item(args.where); // notice the difference in arguments
         const result = await ctx.prisma.$graphql(args.queryx);
 
         console.log('result', result.item);

@@ -14,7 +14,7 @@ const FILE = 'file';
 
 // const CREATE_ITEM_BASIC = gql`
 //     mutation addItem($title: String!, $description: String) {
-//         createNewThingBasic(title: $title, description: $description) {
+//         gqlYogaCreateNewThingBasic(title: $title, description: $description) {
 //             id
 //             title
 //             description
@@ -26,8 +26,8 @@ const FILE = 'file';
 // `;
 
 const CREATE_ITEM = gql`
-    mutation addItem($newItem: ItemCreateInput!) {
-        createNewThing(input: $newItem) {
+    mutation _($newItemVariableKeyName: ItemCreateInput!) {
+        createNewThingGqlYogaMutationName(inputGqlYoga: $newItemVariableKeyName) {
             id
             title
             description
@@ -47,7 +47,7 @@ export default function CreateItem(bla) {
         setState(prevState => ({ ...prevState, [name]: val }));
     };
     // const [createItem, newItemLoadingErrorDataObject] = useMutation(CREATE_ITEM_BASIC);
-    const [createItem, newItemLoadingErrorDataObject] = useMutation(CREATE_ITEM);
+    const [createItemMutationHookFn, newItemLoadingErrorDataObject] = useMutation(CREATE_ITEM);
     console.log('newItemLoadingErrorDataObject', newItemLoadingErrorDataObject);
     const { error, data, loading } = newItemLoadingErrorDataObject;
 
@@ -74,12 +74,12 @@ export default function CreateItem(bla) {
             onSubmit={async e => {
                 e.preventDefault();
                 console.log('submitted, local state:', state);
-                // createItem({ variables: { ...state } }); // useMutation for createNewThingBasic
-                const res = await createItem({ variables: { newItem: { ...state } } }); // useMutation for mutation createNewThing
-                if (res.data && res.data.createNewThing) {
+                // createItem({ variables: { ...state } }); // useMutation for gqlYogaCreateNewThingBasic
+                const res = await createItemMutationHookFn({ variables: { newItemVariableKeyName: { ...state } } }); // useMutation for mutation gqlYogaCreateNewThing
+                if (res.data && res.data.gqlYogaCreateNewThingMutationName) {
                     Router.push({
                         pathname: '/item',
-                        query: { id: res.data.createNewThing.id },
+                        query: { id: res.data.gqlYogaCreateNewThingMutationName.id },
                     });
                 }
             }}

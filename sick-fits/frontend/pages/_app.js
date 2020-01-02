@@ -2,7 +2,7 @@ import Page from '../components/Page';
 import { withApollo } from '../lib/apollo';
 
 function MyApp(props) {
-    console.log('_app props', props);
+    // console.log('_app props', props);
     return (
         <Page>
             <props.Component {...props.pageProps} /> {/* props. is just for clarity */}

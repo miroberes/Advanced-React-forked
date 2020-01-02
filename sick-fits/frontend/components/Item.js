@@ -9,40 +9,9 @@ import ItemStyles from './styles/ItemStyles';
 import PriceTag from './styles/PriceTag';
 import formatMoney from '../lib/formatMoney';
 
-const GET_ITEM = gql`
-    query getItem($id: ItemWhereUniqueInput!) {
-        item(input: $id) {
-            id
-            title
-            description
-            image
-            price
-        }
-    }
-`;
-
 function Item(props) {
-    let id, title, description, image, largeImage, price, updatedAt, createdAt;
-    if (props.item) {
-        console.log('in if, props', props);
-        ({ id, title, description, image, largeImage, price, updatedAt, createdAt } = props.item);
-    } else {
-        console.log('in else, props', props);
+    const { id, title, description, image, largeImage, price, updatedAt, createdAt } = props.item;
 
-        const { query } = props;
-        const { loading, error, data } = useQuery(GET_ITEM, { variables: { id: query } });
-
-        if (loading) {
-            return <p>Loading...</p>;
-        }
-        if (error) {
-            return <p>Error</p>;
-        }
-        if (!data.item) {
-            return <p>No item with id {query.id}</p>;
-        }
-        ({ id, title, description, image, largeImage, price, updatedAt, createdAt } = data.item);
-    }
     return (
         <ItemStyles>
             {image && <img src={image} alt={title} />}

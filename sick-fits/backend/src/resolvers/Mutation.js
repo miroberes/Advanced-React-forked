@@ -9,10 +9,10 @@ const Mutation = {
         console.log('newThing', newThing);
         return newThing;
     },
-    async createNewThing(parent, args, ctx, info) {
-        console.log('createNewThing args.input', args.input);
-        const newThing = await ctx.prisma.createItem(args.input);
-        // const newThing = await ctx.db.mutation.createItem({ data: args.input });
+    async createNewThingGqlYogaMutationName(parent, args, ctx, info) {
+        console.log('createNewThing args.gqlYogaInput', args.gqlYogaInput);
+        const newThing = await ctx.prisma.createItem(args.gqlYogaInput);
+        // const newThing = await ctx.db.mutation.createItem({ data: args.gqlYogaInput });
         console.log('newThing', newThing);
         return newThing;
     },

@@ -37,34 +37,8 @@ const SingleItemStyles = styled.div`
 `;
 
 const GET_ITEM = gql`
-    query getItem($id: ItemWhereUniqueInput!) {
-        item(input: $id) {
-            id
-            title
-            description
-            image
-            largeImage
-            price
-        }
-    }
-`;
-
-const queryx = `
-    query {
-        item(where: { id: "ck4vcqotbtdlj099397mzrtr1" }) {
-            id
-            title
-            description
-            image
-            largeImage
-            price
-        }
-    }
-`;
-
-const GET_ITEM_PRISMA = gql`
-    query itemDirect($query: String) {
-        itemWithPrismaClient(queryx: $query) {
+    query nameJustToBeThereNotUsedAnywhereElse($id: ItemWhereUniqueInput!) {
+        gqlYogaItem(gqlYogaInput: $id) {
             id
             title
             description
@@ -77,9 +51,7 @@ const GET_ITEM_PRISMA = gql`
 
 function Item(props) {
     const { query } = props;
-    // const { loading, error, data } = useQuery(GET_ITEM, { variables: { id: query } });
-    console.log(queryx);
-    const { loading, error, data } = useQuery(GET_ITEM_PRISMA, { variables: { query: queryx } });
+    const { loading, error, data } = useQuery(GET_ITEM, { variables: { id: query } });
 
     if (loading) {
         return <p>Loading...</p>;
@@ -87,11 +59,10 @@ function Item(props) {
     if (error) {
         return <ErrorMessage error={error} />;
     }
-    console.log('data', data);
-    if (!data.itemWithPrismaClient) {
+    if (!data.item) {
         return <p>No item with id {query.id}</p>;
     }
-    const { id, title, description, image, largeImage, price, updatedAt, createdAt } = data.itemWithPrismaClient;
+    const { id, title, description, image, largeImage, price, updatedAt, createdAt } = data.item;
 
     return (
         <SingleItemStyles>
