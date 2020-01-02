@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import Item from './Item';
 import styled from 'styled-components';
+import Pagination from './Pagination';
 
 const ALL_ITEMS_QUERY = gql`
     query getAllTheItems {
@@ -21,7 +22,6 @@ const ALL_ITEMS_QUERY = gql`
 
 const Center = styled.div`
     text-align: center;
-
 `;
 
 const ItemsList = styled.div`
@@ -31,7 +31,6 @@ const ItemsList = styled.div`
     max-width: ${props => props.theme.maxWidth};
     margin: 0 auto;
 `;
-
 
 function Items() {
     const { loading, error, data } = useQuery(ALL_ITEMS_QUERY);
@@ -43,11 +42,15 @@ function Items() {
         return <p>{error.message}</p>;
     }
     return (
-        <ItemsList>
-            {data.items.map(item => {
-                return <Item item={item} key={item.id}/>;
-            })}
-        </ItemsList>
+        <Center>
+            <Pagination />
+            <ItemsList>
+                {data.items.map(item => {
+                    return <Item item={item} key={item.id} />;
+                })}
+            </ItemsList>
+            <Pagination />
+        </Center>
     );
 }
 

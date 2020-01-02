@@ -14,7 +14,7 @@ const DESCRIPTION = 'description';
 
 const GET_ITEM = gql`
     query getItem($id: ItemWhereUniqueInput!) {
-        item(where: $id) {
+        item(input: $id) {
             id
             title
             description
@@ -50,7 +50,7 @@ export default function UpdateItem({ query }) {
     }
 
     if (error) {
-        return <p>Error</p>;
+        return <ErrorMessage error={error} />;
     }
 
     if(!data.item) {
@@ -89,7 +89,6 @@ export default function UpdateItem({ query }) {
             }}
         >
             {console.log('state', state)}
-            <ErrorMessage error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor={TITLE}>
                     {capitalize(TITLE)}

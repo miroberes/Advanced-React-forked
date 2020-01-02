@@ -11,7 +11,7 @@ import formatMoney from '../lib/formatMoney';
 
 const GET_ITEM = gql`
     query getItem($id: ItemWhereUniqueInput!) {
-        item(where: $id) {
+        item(input: $id) {
             id
             title
             description
@@ -57,6 +57,7 @@ function Item(props) {
                 </Link>
             </Title>
             <PriceTag>{formatMoney(price)}</PriceTag>
+            <p>{description}</p>
             <div className='buttonList'>
                 <Link
                     href={{

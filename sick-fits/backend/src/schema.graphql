@@ -2,7 +2,9 @@
 
 type Query {
     items: [Item]!
-    item(where: ItemWhereUniqueInput!): Item
+    item(input: ItemWhereUniqueInput!): Item
+    # forwarding to Prisma with the Prisma client prisma.$graphql(queryAsPlainString)
+    itemWithPrismaClient(queryx: String): Item
 }
 
 type Mutation {

@@ -1,10 +1,10 @@
-import Item from "../components/Item";
+import SingleItem from "../components/SingleItem";
 
-export default function item(props) {
+export default (props) => {
     console.log("item.js props", props);
     return (
         <div>
-            <Item query={props.query}/>
+            <SingleItem query={props.query}/>
         </div>
     )
 }

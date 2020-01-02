@@ -10,9 +10,6 @@ const Nav = () => {
             <Link href='/sell'>
                 <a>Sell</a>
             </Link>
-            <Link href='/update?id=ck4rjkwadrobu09936ao862m3'>
-                <a>Update</a>
-            </Link>
             <Link href='/signup'>
                 <a>Signup</a>
             </Link>

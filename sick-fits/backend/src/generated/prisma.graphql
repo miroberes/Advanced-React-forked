@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/miroslav-beres/sick-fits-wb-course/dev
-# timestamp: Thu Dec 26 2019 17:15:08 GMT+0100 (GMT+01:00)
+# timestamp: Thu Jan 02 2020 13:50:09 GMT+0100 (Central European Standard Time)
 
 type AggregateItem {
   count: Int!
