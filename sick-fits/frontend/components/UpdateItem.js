@@ -14,7 +14,7 @@ const DESCRIPTION = 'description';
 
 const GET_ITEM = gql`
     query nameJustToBeThereNotUsedAnywhereElse($id: ItemWhereUniqueInput!) {
-        item(input: $id) {
+        itemGqlYoga(inputGqlYoga: $id) {
             id
             title
             description
@@ -56,12 +56,12 @@ export default function UpdateItem({ query }) {
         return <ErrorMessage error={error} />;
     }
 
-    if(!data.item) {
-        return <p className="">Empty result returned from db for item id: {query.id}.</p>
+    if (!data.itemGqlYoga) {
+        return <p className=''>Empty result returned from db for item id: {query.id}.</p>;
     }
 
     const {
-        item: { title, description, price },
+        itemGqlYoga: { title, description, price },
     } = data;
 
     // console.log('title', title);

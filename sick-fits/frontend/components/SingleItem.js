@@ -38,7 +38,7 @@ const SingleItemStyles = styled.div`
 
 const GET_ITEM = gql`
     query nameJustToBeThereNotUsedAnywhereElse($id: ItemWhereUniqueInput!) {
-        gqlYogaItem(gqlYogaInput: $id) {
+        itemGqlYoga(inputGqlYoga: $id) {
             id
             title
             description
@@ -52,17 +52,17 @@ const GET_ITEM = gql`
 function Item(props) {
     const { query } = props;
     const { loading, error, data } = useQuery(GET_ITEM, { variables: { id: query } });
-
+    
     if (loading) {
         return <p>Loading...</p>;
     }
     if (error) {
         return <ErrorMessage error={error} />;
     }
-    if (!data.item) {
+    if (!data.itemGqlYoga) {
         return <p>No item with id {query.id}</p>;
     }
-    const { id, title, description, image, largeImage, price, updatedAt, createdAt } = data.item;
+    const { id, title, description, image, largeImage, price, updatedAt, createdAt } = data.itemGqlYoga;
 
     return (
         <SingleItemStyles>
@@ -73,6 +73,7 @@ function Item(props) {
             <div className='details'>
                 <h2>{title}</h2>
                 <p>{description}</p>
+                <p>{formatMoney(price)}</p>
             </div>
         </SingleItemStyles>
         // <ItemStyles>
@@ -105,7 +106,7 @@ function Item(props) {
 }
 
 Item.propTypes = {
-    item: PropTypes.object.isRequired,
+    itemGqlYoga: PropTypes.object.isRequired,
 };
 
 export default Item;
