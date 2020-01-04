@@ -7,8 +7,8 @@ import Pagination from './Pagination';
 import { itemsPerPage } from '../config';
 
 const ALL_ITEMS_QUERY = gql`
-    query nameJustToBeThereNotUsedAnywhereElse($firstHowManyVariableKeyName: Int = ${itemsPerPage}, $skipHowManyVariableKeyName: Int = 0){
-        itemsAliasInGqlYogaItemsIsForwardedMustMatchPrisma: items(first: $firstHowManyVariableKeyName, skip: $skipHowManyVariableKeyName, orderBy: createdAt_ASC) {
+    query allItemsQuery($firstHowManyVariableKeyName: Int = ${itemsPerPage}, $skipHowManyVariableKeyName: Int = 0){
+        items(first: $firstHowManyVariableKeyName, skip: $skipHowManyVariableKeyName, orderBy: createdAt_DESC) {
             id
             title
             description
@@ -46,7 +46,7 @@ function Items(props) {
         <Center>
             <Pagination pagenr={props.pagenr} />
             <ItemsList>
-                {data.itemsAliasInGqlYogaItemsIsForwardedMustMatchPrisma.map(item => {
+                {data.items.map(item => {
                     return <Item item={item} key={item.id} />;
                 })}
             </ItemsList>

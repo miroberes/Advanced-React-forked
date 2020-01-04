@@ -1,11 +1,11 @@
 import CreateItem from '../components/CreateItem';
 
-const Sell = props => {
-    console.log('sell.js props.pageProps:', props.pageProps);
-
+const Sell = () => {
+    const pagenr = parseInt(localStorage.getItem('pagenr'), 10);
+    console.log('sell.js pagenr', pagenr);
     return (
         <div>
-            <CreateItem bla={props.query.id} />
+            <CreateItem pagenr={pagenr} />
         </div>
     );
 };

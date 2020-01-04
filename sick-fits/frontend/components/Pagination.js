@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { itemsPerPage } from '../config';
 
 const PAGINATION_QUERY = gql`
-    query nameJustToBeThereNotUsedAnywhereElse {
+    query paginationQuery {
         localAlias: itemsConnection {
             aggregate {
                 count
@@ -21,7 +21,7 @@ const PAGINATION_QUERY = gql`
 export default props => {
     const { data, loading, error } = useQuery(PAGINATION_QUERY);
     const { pagenr } = props;
-    console.log('Pagination props', props);
+    saveHighestPagenr(pagenr);
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -38,7 +38,7 @@ export default props => {
         <PaginationStyles>
             <Head>
                 <title>
-                    {console.log(pagenr)}
+                    {/* {console.log(pagenr)} */}
                     Sick Fits! - page {pagenr} of {pages}
                 </title>
             </Head>
@@ -68,3 +68,11 @@ export default props => {
         </PaginationStyles>
     );
 };
+
+function saveHighestPagenr(pagenr) {
+    // console.log('saveHighestPagenr parameter', pagenr);
+    if (localStorage.getItem('pagenr') < pagenr) {
+        localStorage.setItem('pagenr', JSON.stringify(pagenr));
+    }
+    // console.log('in saveHighestPagenr pagenr', localStorage.getItem('pagenr'));
+}

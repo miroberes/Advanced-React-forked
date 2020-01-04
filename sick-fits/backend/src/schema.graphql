@@ -11,6 +11,6 @@ type Query {
 
 type Mutation {
     createNewThingBasic(title: String!, description: String, image: String, largeImage: String, price: Int): Item
-    createNewThingGqlYogaMutationName(gqlYogaInput: ItemCreateInput!): Item
+    createNewThingGqlYogaMutationName(inputGqlYoga: ItemCreateInput!): Item
     updateThing(input: ItemUpdateInput!, id: ItemWhereUniqueInput!): Item
 }

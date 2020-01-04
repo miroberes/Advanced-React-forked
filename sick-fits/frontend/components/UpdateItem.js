@@ -13,7 +13,7 @@ const PRICE = 'price';
 const DESCRIPTION = 'description';
 
 const GET_ITEM = gql`
-    query nameJustToBeThereNotUsedAnywhereElse($id: ItemWhereUniqueInput!) {
+    query getItem($id: ItemWhereUniqueInput!) {
         itemGqlYoga(inputGqlYoga: $id) {
             id
             title
@@ -25,7 +25,7 @@ const GET_ITEM = gql`
 
 //  updateItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
 const UPDATE_ITEM = gql`
-    mutation nameJustToBeThereNotUsedAnywhereElse(
+    mutation updateItem(
         $inputWhatever: ItemUpdateInput!
         $idWhatever: ItemWhereUniqueInput!
     ) {

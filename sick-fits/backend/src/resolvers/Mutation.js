@@ -10,8 +10,8 @@ const Mutation = {
         return newThing;
     },
     async createNewThingGqlYogaMutationName(parent, args, ctx, info) {
-        console.log('createNewThing args.gqlYogaInput', args.gqlYogaInput);
-        const newThing = await ctx.prisma.createItem(args.gqlYogaInput);
+        console.log('createNewThing args.inputGqlYoga', args.inputGqlYoga);
+        const newThing = await ctx.prisma.createItem(args.inputGqlYoga);
         // const newThing = await ctx.db.mutation.createItem({ data: args.gqlYogaInput });
         console.log('newThing', newThing);
         return newThing;

@@ -19,7 +19,7 @@ const ErrorStyles = styled.div`
 `;
 
 const DisplayError = ({ error }) => {
-    console.log('error', error);
+    // console.log('error', error);
     if (!error || !error.message) return null;
     if (error.networkError && error.networkError.result && error.networkError.result.errors.length) {
         return error.networkError.result.errors.map((error, i) => (

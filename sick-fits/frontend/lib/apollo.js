@@ -133,5 +133,6 @@ function createApolloClient(initialState = {}) {
             fetch,
         }),
         cache: new InMemoryCache().restore(initialState),
+        connectToDevTools: true,
     });
 }

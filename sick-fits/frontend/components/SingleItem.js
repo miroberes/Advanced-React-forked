@@ -37,7 +37,7 @@ const SingleItemStyles = styled.div`
 `;
 
 const GET_ITEM = gql`
-    query nameJustToBeThereNotUsedAnywhereElse($id: ItemWhereUniqueInput!) {
+    query getItem($id: ItemWhereUniqueInput!) {
         itemGqlYoga(inputGqlYoga: $id) {
             id
             title
