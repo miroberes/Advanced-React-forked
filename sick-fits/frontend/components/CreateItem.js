@@ -6,8 +6,6 @@ import gql from 'graphql-tag';
 import Form from './styles/Form';
 import ErrorMessage from './ErrorMessage';
 
-import { itemsPerPage as first } from '../config';
-
 const TITLE = 'title';
 const PRICE = 'price';
 const DESCRIPTION = 'description';
@@ -26,18 +24,6 @@ const FILE = 'file';
 //     }
 // `;
 
-const ALL_ITEMS_QUERY = gql`
-    query allItemsQuery($firstHowManyVariableKeyName: Int = ${first}, $skipHowManyVariableKeyName: Int = 0){
-        items(first: $firstHowManyVariableKeyName, skip: $skipHowManyVariableKeyName, orderBy: title_ASC) {
-            id
-            title
-            description
-            image
-            price
-        }
-    }
-`;
-
 const CREATE_ITEM = gql`
     mutation createItem($newItemVariableKeyName: ItemCreateInput!) {
         createNewThingGqlYogaMutationName(inputGqlYoga: $newItemVariableKeyName) {
@@ -50,8 +36,7 @@ const CREATE_ITEM = gql`
     }
 `;
 
-export default function CreateItem(props) {
-    console.log('CreateItem props', props);
+export default function CreateItem() {
     const [state, setState] = useState({ title: '', description: '', image: '', largeImage: '', price: 0 });
     const inputChangeHandler = e => {
         const { name, type, value } = e.target;
@@ -59,36 +44,7 @@ export default function CreateItem(props) {
         setState(prevState => ({ ...prevState, [name]: val }));
     };
     // const [createItem, newItemLoadingErrorDataObject] = useMutation(CREATE_ITEM_BASIC);
-    const [createItemMutationHookFn, newItemLoadingErrorDataObject] = useMutation(CREATE_ITEM, {
-        update(cache, { data: responseObject }) {
-            console.log('responseObject', responseObject);
-            const skip = 0;
-            const orderBy = 'title_ASC';
-
-            const objectWithArrayOfItemObjects = cache.readQuery({
-                query: ALL_ITEMS_QUERY,
-                variables: { first, orderBy, skip },
-            });
-            const data = { items: [responseObject.createNewThingGqlYogaMutationName].concat(objectWithArrayOfItemObjects.items)};
-            console.log('CreateItem data', data);
-            console.log(
-                'responseObject.createNewThingGqlYogaMutationName',
-                responseObject.createNewThingGqlYogaMutationName
-            );
-            console.log('objectWithArrayOfItemObjects', objectWithArrayOfItemObjects);
-
-            cache.writeQuery({
-                query: ALL_ITEMS_QUERY,
-                data,
-                variables: { first, orderBy, skip },
-            });
-            const objectWithArrayOfItemObjectsAfterUpdate = cache.readQuery({
-                query: ALL_ITEMS_QUERY,
-                variables: { first, orderBy, skip },
-            });
-            console.log('objectWithArrayOfItemObjectsAfterUpdate', objectWithArrayOfItemObjectsAfterUpdate);
-        },
-    });
+    const [createItemMutationHookFn, newItemLoadingErrorDataObject] = useMutation(CREATE_ITEM);
 
     console.log('newItemLoadingErrorDataObject', newItemLoadingErrorDataObject);
     const { error, data, loading } = newItemLoadingErrorDataObject;
@@ -119,12 +75,12 @@ export default function CreateItem(props) {
                 // createItem({ variables: { ...state } }); // useMutation for gqlYogaCreateNewThingBasic
                 const res = await createItemMutationHookFn({ variables: { newItemVariableKeyName: { ...state } } }); // useMutation for mutation gqlYogaCreateNewThing
                 console.log('res', res);
-                // if (res.data && res.data.gqlYogaCreateNewThingMutationName) {
-                Router.push({
-                    pathname: '/item',
-                    query: { id: res.data.createNewThingGqlYogaMutationName.id },
-                });
-                // }
+                if (res.data && res.data.gqlYogaCreateNewThingMutationName) {
+                    Router.push({
+                        pathname: '/item',
+                        query: { id: res.data.createNewThingGqlYogaMutationName.id },
+                    });
+                }
             }}
         >
             <ErrorMessage error={error} />

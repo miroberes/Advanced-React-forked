@@ -20,6 +20,7 @@ MyApp.getInitialProps = async props => {
         console.log('_app Component, pageProps', pageProps);
     }
     // this exposes the query to the user
+    console.log('_app ctx.query', ctx.query);
     pageProps.query = ctx.query;
     return { pageProps };
 };

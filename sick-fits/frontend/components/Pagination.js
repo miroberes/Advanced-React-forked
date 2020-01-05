@@ -21,7 +21,6 @@ const PAGINATION_QUERY = gql`
 export default props => {
     const { data, loading, error } = useQuery(PAGINATION_QUERY);
     const { pagenr } = props;
-    saveHighestPagenr(pagenr);
     if (loading) {
         return <p>Loading...</p>;
     }
@@ -68,11 +67,3 @@ export default props => {
         </PaginationStyles>
     );
 };
-
-function saveHighestPagenr(pagenr) {
-    // console.log('saveHighestPagenr parameter', pagenr);
-    if (localStorage.getItem('pagenr') < pagenr) {
-        localStorage.setItem('pagenr', JSON.stringify(pagenr));
-    }
-    // console.log('in saveHighestPagenr pagenr', localStorage.getItem('pagenr'));
-}
