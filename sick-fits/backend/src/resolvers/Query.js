@@ -30,6 +30,10 @@ const Query = {
         console.log('result', result.item);
         return result.item;
     },
+    async user(parent, args, ctx, info) {
+        console.log('permission resolver');
+        return await ctx.prisma.user({ id: args.id })
+    },
 };
 
 module.exports = Query;

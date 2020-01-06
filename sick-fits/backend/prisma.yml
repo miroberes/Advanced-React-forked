@@ -6,4 +6,4 @@ hooks:
 
 generate:
   - generator: javascript-client
-    output: ./prisma-client/
+    output: ./prisma-client/npm

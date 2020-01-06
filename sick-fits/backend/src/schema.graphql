@@ -7,10 +7,14 @@ type Query {
     # forwarding to Prisma with the Prisma client prisma.$graphql(queryAsPlainString)
     itemWithPrismaClient(queryx: String): Item
     itemsConnection(input: ItemWhereInput): ItemConnection!
+    permissions(id: ID!): [Permission]
+    user(id: ID): User
+    
 }
 
 type Mutation {
     createNewThingBasic(title: String!, description: String, image: String, largeImage: String, price: Int): Item
     createNewThingGqlYogaMutationName(inputGqlYoga: ItemCreateInput!): Item
     updateThing(input: ItemUpdateInput!, id: ItemWhereUniqueInput!): Item
+    signup(input: UserCreateInput!): User!
 }

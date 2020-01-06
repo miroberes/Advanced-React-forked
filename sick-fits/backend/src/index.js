@@ -1,7 +1,14 @@
-require('dotenv').config({path: 'variables.env'});
+const cookieParser = require('cookie-parser');
+
+require('dotenv').config({ path: 'variables.env' });
 const createServer = require('./createServer');
 
 const server = createServer();
+
+// use express middleware to handle cookies - JWT
+server.express.use(cookieParser());
+
+
 
 server.start(
     {
@@ -12,6 +19,6 @@ server.start(
     },
     options => {
         console.log(`Server is now running on http://localhost:${options.port}`);
-        console.log(options)
+        console.log(options);
     }
 );
