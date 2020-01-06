@@ -40,6 +40,10 @@ export default function CreateItem() {
     const [state, setState] = useState({ title: '', description: '', image: '', largeImage: '', price: 0 });
     const inputChangeHandler = e => {
         const { name, type, value } = e.target;
+        console.log(e);
+        console.log('name', name);
+        console.log('type', type);
+        console.log('value', value);
         const val = type === 'number' ? parseFloat(value) : value;
         setState(prevState => ({ ...prevState, [name]: val }));
     };

@@ -44,7 +44,7 @@ function Item(props) {
 }
 
 Item.propTypes = {
-    itemGqlYoga: PropTypes.object.isRequired,
+    item: PropTypes.object.isRequired,
 };
 
 export default Item;
