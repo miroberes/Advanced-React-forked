@@ -13,7 +13,7 @@ const PRICE = 'price';
 const DESCRIPTION = 'description';
 
 const GET_ITEM = gql`
-    query getItem($id: ItemWhereUniqueInput!) {
+    query getItemUpdateItem($id: ItemWhereUniqueInput!) {
         itemGqlYoga(inputGqlYoga: $id) {
             id
             title

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Form from './styles/Form';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
+import ErrorMessage from './ErrorMessage';
+
 
 const NAME = 'name';
 const EMAIL = 'email';
@@ -9,15 +11,17 @@ const PASSWORD = 'password';
 
 const SIGN_UP = gql`
     mutation signUp($newUserVariableKeyName: UserCreateInput!) {
-        signupx(input: $newUserVariableKeyName) {
+        signup(input: $newUserVariableKeyName) {
             id
             name
             email
             password
             permissions
+            
         }
     }
 `;
+
 
 export default function Signup() {
     const [state, setState] = useState({
@@ -33,13 +37,14 @@ export default function Signup() {
     const { error, data, loading } = newItemLoadingErrorDataObject;
 
     return (
-        <Form
+        <Form method="post"
             onSubmit={async e => {
                 e.preventDefault();
                 const res = await signUpMutationHookFn({
                     variables: { newUserVariableKeyName: { ...state } },
                 });
-                console.log(res.data);
+                setState({ name: '', email: '', password: '' });
+                console.log('res.data', res.data);
             }}
         >
             <ErrorMessage error={error} />
@@ -53,6 +58,7 @@ export default function Signup() {
                         placeholder={NAME}
                         value={state.name}
                         onChange={inputChangeHandler}
+                        required
                     />
                 </label>
                 <label htmlFor={EMAIL}>
@@ -63,6 +69,7 @@ export default function Signup() {
                         placeholder={EMAIL}
                         value={state.email}
                         onChange={inputChangeHandler}
+                        required
                     />
                 </label>
                 <label htmlFor={PASSWORD}>
@@ -73,6 +80,7 @@ export default function Signup() {
                         placeholder={PASSWORD}
                         value={state.password}
                         onChange={inputChangeHandler}
+                        required
                     />
                 </label>
                 <button type='submit' name='submit'>

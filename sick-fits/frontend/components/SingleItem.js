@@ -37,7 +37,7 @@ const SingleItemStyles = styled.div`
 `;
 
 const GET_ITEM = gql`
-    query getItem($id: ItemWhereUniqueInput!) {
+    query getItemSingleItem($id: ItemWhereUniqueInput!) {
         itemGqlYoga(inputGqlYoga: $id) {
             id
             title

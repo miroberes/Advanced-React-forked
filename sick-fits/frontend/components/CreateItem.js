@@ -72,7 +72,7 @@ export default function CreateItem() {
     };
 
     return (
-        <Form
+        <Form method="post"
             onSubmit={async e => {
                 e.preventDefault();
                 console.log('submitted, local state:', state);
