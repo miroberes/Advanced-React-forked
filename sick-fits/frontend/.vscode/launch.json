@@ -19,7 +19,7 @@
             "runtimeArgs": ["-p", "7777"],
             "port": 9229,
             "env": {
-                "NODE_OPTIONS": "--inspect"
+                "NODE_OPTIONS": "--inspect=5622"
             }
         }
     ],

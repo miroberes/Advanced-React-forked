@@ -1,9 +1,16 @@
 import Link from 'next/link';
 import NavStyles from './styles/NavStyles';
+import User from './User';
 
 const Nav = () => {
     return (
         <NavStyles>
+            <User>
+                {({data: {currentUser}}) => {
+                    console.log('momo', currentUser);
+                    return <p>User</p>;
+                }}
+            </User>
             <Link href='/items'>
                 <a>Items</a>
             </Link>

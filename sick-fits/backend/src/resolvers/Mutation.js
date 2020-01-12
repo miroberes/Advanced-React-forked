@@ -25,7 +25,7 @@ const Mutation = {
         return updatedThing;
     },
     async signup(parent, { input }, ctx, info) {
-        console.log('input mut', { ...input });
+        console.log('input signup mutation', { ...input });
         input.email = input.email.toLowerCase();
         const password = await bcrypt.hash(input.password, 10);
         const user = await ctx.prisma.createUser({

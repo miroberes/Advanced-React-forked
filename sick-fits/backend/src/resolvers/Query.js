@@ -30,9 +30,13 @@ const Query = {
         console.log('result', result.item);
         return result.item;
     },
-    async user(parent, args, ctx, info) {
-        console.log('permission resolver');
-        return await ctx.prisma.user({ id: args.id })
+    currentUser(parent, args, ctx, info) {
+        if (ctx.request.userId) {
+            const user = ctx.prisma.user({ id: ctx.request.userId });
+            return user;
+        } else {
+            return null;
+        }
     },
 };
 

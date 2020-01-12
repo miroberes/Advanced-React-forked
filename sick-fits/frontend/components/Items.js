@@ -34,14 +34,14 @@ function Items(props) {
     const { loading, error, data } = useQuery(ALL_ITEMS_QUERY, {
         variables: { skipHowManyVariableKeyName: itemsPerPage * props.pagenr - itemsPerPage },
     });
-    console.log('Items, data:', data);
+    // console.log('Items, data:', data);
     if (loading) {
         return <p>Loading ...</p>;
     }
     if (error) {
         return <p>{error.message}</p>;
     }
-    console.log('Items props', props);
+    // console.log('Items props', props);
     return (
         <Center>
             <Pagination pagenr={props.pagenr} />
