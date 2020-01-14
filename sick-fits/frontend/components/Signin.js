@@ -5,65 +5,52 @@ import { useMutation } from '@apollo/react-hooks';
 import ErrorMessage from './ErrorMessage';
 import { CURRENT_USER } from './User';
 
-
-const NAME = 'name';
 const EMAIL = 'email';
 const PASSWORD = 'password';
 
-const SIGN_UP = gql`
-    mutation signUp($newUserVariableKeyName: UserCreateInput!) {
-        signup(input: $newUserVariableKeyName) {
+const SIGN_IN = gql`
+    mutation signIn($userVariableKeyName: UserWhereInput!) {
+        signin(input: $userVariableKeyName) {
             id
-            name
             email
             password
-            permissions
-
         }
     }
 `;
 
-
-export default function Signup() {
+export default function Signin() {
     const [state, setState] = useState({
-        name: '',
         email: '',
         password: '',
     });
+
     const inputChangeHandler = e => {
+        console.log(e.target.value);
         const { name, value } = e.target;
         setState(prevState => ({ ...prevState, [name]: value }));
     };
-    const [signUpMutationHookFn, newItemLoadingErrorDataObject] = useMutation(SIGN_UP, {
-        refetchQueries: [{ query: CURRENT_USER }],
+
+    const [signInMutationHookFn, newItemLoadingErrorDataObject] = useMutation(SIGN_IN, {
+        refetchQueries: [{query: CURRENT_USER}],
     });
+ 
     const { error, data, loading } = newItemLoadingErrorDataObject;
 
     return (
-        <Form method='post'
+        <Form
+            method='post'
             onSubmit={async e => {
                 e.preventDefault();
-                const res = await signUpMutationHookFn({
-                    variables: { newUserVariableKeyName: { ...state } },
+                const res = await signInMutationHookFn({
+                    variables: { userVariableKeyName: { ...state } },
                 });
-                setState({ name: '', email: '', password: '' });
+                setState({ email: '', password: '' });
                 console.log('res.data', res.data);
             }}
         >
             <ErrorMessage error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Sign Up for an account</h2>
-                <label htmlFor=''>
-                    Name
-                    <input
-                        type='text'
-                        name={NAME}
-                        placeholder={NAME}
-                        value={state.name}
-                        onChange={inputChangeHandler}
-                        required
-                    />
-                </label>
+                <h2>Sign In</h2>
                 <label htmlFor={EMAIL}>
                     Email
                     <input

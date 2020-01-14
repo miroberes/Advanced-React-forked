@@ -13,7 +13,7 @@ server.express.use(cookieParser());
 
 // decode the JWT so we can get the user Id on each request
 server.express.use((req, res, next) => {
-    console.log('middleware', req.cookies);
+    // console.log('middleware', req.cookies);
     const { token } = req.cookies;
     // console.log('middleware req.cookies', req.cookies)
     // console.log('middleware token', token)

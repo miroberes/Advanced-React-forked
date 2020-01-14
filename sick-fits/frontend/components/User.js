@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { Query } from 'react-apollo';
 
 const CURRENT_USER = gql`
     query getCurrentUser {
@@ -17,8 +16,8 @@ const CURRENT_USER = gql`
 
 const User = props => {
     const payload = useQuery(CURRENT_USER);
-    const {loading} = payload;
-    if(loading) {
+    const { loading } = payload;
+    if (loading) {
         console.log('now loading');
         return <p>loading user</p>;
     }

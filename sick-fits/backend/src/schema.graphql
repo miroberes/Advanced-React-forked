@@ -15,6 +15,7 @@ type Mutation {
     createNewThingGqlYogaMutationName(inputGqlYoga: ItemCreateInput!): Item
     updateThing(input: ItemUpdateInput!, id: ItemWhereUniqueInput!): Item
     signup(input: UserCreateInput!): User!
+    signin(input: UserWhereInput!): User!
 }
 
 

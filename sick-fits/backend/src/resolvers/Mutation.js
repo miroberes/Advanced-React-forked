@@ -28,6 +28,7 @@ const Mutation = {
         console.log('input signup mutation', { ...input });
         input.email = input.email.toLowerCase();
         const password = await bcrypt.hash(input.password, 10);
+        console.log('signup password', password);
         const user = await ctx.prisma.createUser({
             ...input,
             password,
@@ -38,6 +39,26 @@ const Mutation = {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 365,
         });
+        return user;
+    },
+    async signin(parent, { input: { email, password } }, ctx, info) {
+        const user = await ctx.prisma.user({ email: email });
+        if (!user) {
+            throw new Error(`No account for email ${email}`);
+        }
+
+        const isMatchingPassword = await bcrypt.compare(password, user.password);
+        if (!isMatchingPassword) {
+            throw new Error(`Something went wrong...`);
+        }
+
+        console.log('signin user', user);
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+        ctx.response.cookie('token', token, {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 365,
+        });
+
         return user;
     },
 };
