@@ -16,7 +16,12 @@ type Mutation {
     updateThing(input: ItemUpdateInput!, id: ItemWhereUniqueInput!): Item
     signup(input: UserCreateInput!): User!
     signin(input: UserWhereInput!): User!
+    signout: SuccessMessage
 }
+
+    type SuccessMessage {
+      successMessage: String
+    }
 
 
 # source: https://eu1.prisma.sh/miroslav-beres/sick-fits-wb-course/dev

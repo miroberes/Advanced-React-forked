@@ -38,6 +38,10 @@ const GlobalStyle = createGlobalStyle`
         text-decoration: none;
         color: ${theme.black};
     }
+    /* from Normalize css */
+    button {
+        font-family: inherit; 
+    }
 `;
 
 const StyledPage = styled.div`
@@ -56,7 +60,7 @@ const Inner = styled.div`
 
 export default class Page extends Component {
     render() {
-    // console.log('Page props', this.props);
+        // console.log('Page props', this.props);
 
         return (
             <ThemeProvider theme={theme}>
